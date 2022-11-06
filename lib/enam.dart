@@ -1,0 +1,1 @@
+enum MenuState{Home_Screen,Favorit,Profile,ShoppingCart }
