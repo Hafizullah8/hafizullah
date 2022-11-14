@@ -8,8 +8,10 @@ import 'package:mono_project/database.dart';
 import 'package:mono_project/models/products.dart';
 import 'package:mono_project/variable.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:sqflite/utils/utils.dart';
 import '../Pages/homescreeen.dart';
 class MainforminformationC extends StatefulWidget {
+
   @override
   State<MainforminformationC> createState() => _MainforminformationCState();
 }
@@ -17,22 +19,26 @@ class _MainforminformationCState extends State<MainforminformationC> {
 
   var _locations = ['Afghanistan', 'Iran'];
   String selectedLocation = 'Afghanistan';
+  String choose='';
+
+  List<String> text=[];
   bool _isChecked = false;
   bool _isnewChecked=false;
   String _nowcurrText='';
   String _currText = '';
   List<String> newtext=[];
-  List<String> text = ["smarthwatch", "shoes", "clothing","glasses"];
+  List<String> chooseproduce = ["smarthwatch", "shoes", "clothing","glasses"];
   List<String> smart=["Sumsung","Apple"];
   List<String> shoes=["mart","adidas"];
   List<String> clothing=["leman","siawood"];
   List<String> glasses=["optic","rayban"];
 
+
   late Product _product;
   String? n='';
   String? b='';
   String? g='';
-  String? p='';
+  int? p=0;
   String? c='';
   @override
   Widget build(BuildContext context) {
@@ -56,13 +62,19 @@ class _MainforminformationCState extends State<MainforminformationC> {
                       dropdownColor:kPrimaryColor,
                       isExpanded: true,
                       value: selectedLocation,
-                      icon: const Icon(Icons.arrow_circle_down),
+                      icon: const Icon(Icons.flag_circle_sharp,size: 40,),
                       iconSize: 20,
                       elevation: 16,
                       underline: Container(),
                       onChanged: (newValue) {
                         setState(() {
                           selectedLocation = newValue!;
+                          choose=selectedLocation;
+                          if(choose!=''){
+                            text=chooseproduce;
+                          }else{
+                            print("sorry");
+                          };
                           c=selectedLocation;
                         });
                       },
@@ -107,25 +119,24 @@ class _MainforminformationCState extends State<MainforminformationC> {
                         value: _isChecked,
                         onChanged: (val) {
                           setState(() {
-                            val= _isChecked ;
-                            if (val == false) {
-                              _currText = t;
-                              n=_currText;
-                              if(_currText=='smarthwatch'){
-                                newtext=smart;
+                              val = _isChecked;
+                              if (val == false) {
+                                _currText = t;
+                                n = _currText;
+                                if (_currText == 'smarthwatch') {
+                                  newtext = smart;
+                                }
+                                else if (_currText == "shoes") {
+                                  newtext = shoes;
+                                } else if (_currText == "clothing") {
+                                  newtext = clothing;
+                                }
+                                else if (_currText == "glasses") {
+                                  newtext = glasses;
+                                }
                               }
-                              else if(_currText=="shoes"){
-                                newtext=shoes;
-                              }else if(_currText=="clothing"){
-                                newtext=clothing;
-                              }
-                              else if(_currText=="glasses"){
-                                newtext=glasses;
-                              }
-
-                            }
-                          });
-                        },
+                           });
+                          },
                       ))
                           .toList(),
                     ),
@@ -178,7 +189,8 @@ class _MainforminformationCState extends State<MainforminformationC> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
             ),
-            getWidget(false, false),
+
+              getWidget(false, false),
             Divider(color: Colors.grey, height: 32),
             _IntegerExample(),
             Divider(color: Colors.grey, height: 32),
@@ -189,40 +201,46 @@ class _MainforminformationCState extends State<MainforminformationC> {
                 children:[
                   ElevatedButton(
                     onPressed:()async{
-                     // print(123);
-                     // int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
-                     // print(t);
-                      List l=[];
-                      if(l.length==0){
-                        l=await databaseHandler.retrieveData(DatabaseHandler.tblpname);
-                        productListg.addAll(l);
-                      }
-                    if(productList.length!=0){
-                      productList.clear();
-                      for(var producname in l){
-                        if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
-                        && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
-                            ){
-                            productList.add(producname);
-                        }
-                      }
-                      setState(() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-                      });
-                    }else{
-                      for(var producname in l){
-                        if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
-                            && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
-                        ){
-                          productList.add(producname);
-                        }
-                      }
-                      setState(() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-                      });
-                    }
+    // print(123);
+    // int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
+    // print(t);
+       if(_IntegerExample.getprice()>=5){
+         p=_IntegerExample.getprice();
+    List l=[];
+    if(l.length==0){
+    l=await databaseHandler.retrieveData(DatabaseHandler.tblpname);
+    productListg.addAll(l);
+    }
+    if(productList.length!=0){
+    productList.clear();
+    for(var producname in l){
+    if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
+    && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
+        && Product.fromMap(producname).getprice()<=p && Product.fromMap(producname).getprice()>=5
+    ){
+    productList.add(producname);
+    }
+    }
+    setState(() {
+      _IntegerExample.setprice(0);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    });
+    }else{
+    for(var producname in l){
+    if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
+    && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
+        && Product.fromMap(producname).getprice()<=p && Product.fromMap(producname).getprice()>=5
+    ){
+    productList.add(producname);
+    }
+    }
+    setState(() {
+      _IntegerExample.setprice(0);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    });
+    }
 
-                  }, child:Text("Send"),),
+    }; }, child:Text("Send"),),
                 ],
               ),
             )
@@ -291,9 +309,21 @@ class _MainforminformationCState extends State<MainforminformationC> {
 class _IntegerExample extends StatefulWidget {
   @override
   __IntegerExampleState createState() => __IntegerExampleState();
+  static int _currentHorizontalIntValue = 5;
+  static getprice() {
+
+    return _currentHorizontalIntValue;
+
+  }
+
+  static void setprice(int price){
+    _currentHorizontalIntValue=price;
+  }
+
 }
 class __IntegerExampleState extends State<_IntegerExample> {
-  int _currentHorizontalIntValue = 1000;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +333,7 @@ class __IntegerExampleState extends State<_IntegerExample> {
         SizedBox(height: 16),
         Text('Select  Bounded Price', style: Theme.of(context).textTheme.headline6),
         NumberPicker(
-          value: _currentHorizontalIntValue,
+          value: _IntegerExample. _currentHorizontalIntValue,
           minValue: 0,
           maxValue: 5000,
           step: 10,
@@ -311,31 +341,35 @@ class __IntegerExampleState extends State<_IntegerExample> {
           axis: Axis.horizontal,
           onChanged: (value) =>
               setState((){
-                _currentHorizontalIntValue = value;
-
+                _IntegerExample. _currentHorizontalIntValue = value;
               }),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black26),
           ),
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(icon: Icon(Icons.remove),
               onPressed: () => setState(() {
-                final newValue = _currentHorizontalIntValue - 50;
-                _currentHorizontalIntValue = newValue.clamp(1000, 5000);
+                final newValue = _IntegerExample._currentHorizontalIntValue - 10;
+                _IntegerExample. _currentHorizontalIntValue = newValue.clamp(5, 5000);
               }),
             ),
-            Text('bounded value: $_currentHorizontalIntValue'),
+
+            Text('bounded value: ${_IntegerExample._currentHorizontalIntValue}'),
+
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () => setState(() {
-                final newValue = _currentHorizontalIntValue + 50;
-                _currentHorizontalIntValue = newValue.clamp(1000, 5000);
+                final newValue = _IntegerExample._currentHorizontalIntValue + 10;
+                _IntegerExample._currentHorizontalIntValue = newValue.clamp(5,5000);
               }),
             ),
+
+
           ],
         ),
       ],

@@ -9,8 +9,8 @@ import 'homescreeen.dart';
 import '../constant.dart';
 class BatumNavBar extends StatelessWidget {
   final Color inactiveColor=Colors.blueGrey;
-  final MenuState selectedMenu;
-  const BatumNavBar({super.key, required this.selectedMenu});
+   final MenuState selectedMenu;
+  const BatumNavBar({required this.selectedMenu });
   @override
   Widget build(BuildContext context) {
     return
@@ -31,34 +31,38 @@ class BatumNavBar extends StatelessWidget {
               children: [
                 Expanded(
                   child: IconButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()),);
-                    },
                     icon:SvgPicture.asset('asset/images/ICON/imageicon1.svg',
-                      color:MenuState.Home_Screen==selectedMenu? kPrimaryColor: inactiveColor,),
+                      color:MenuState.homescreen==selectedMenu? kPrimaryColor: inactiveColor,),
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()),);
+                  },
                   ),
                 ),
                 Expanded(
                   child: IconButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Favorit()),);
-                    },
                     icon:SvgPicture.asset('asset/images/ICON/imageicon2.svg'),
-                    color:MenuState.Favorit==selectedMenu? kPrimaryColor: inactiveColor,),
+                    color:MenuState.favorite==selectedMenu? kPrimaryColor: inactiveColor,
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Favorit()),);
+                  },
+                  ),
                 ),
                 Expanded(
                   child: IconButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()),);
-                    },
-                    icon:SvgPicture.asset('asset/images/ICON/imageicon3.svg'),color: MenuState.Profile==selectedMenu? kPrimaryColor:inactiveColor,),
+
+                    icon:SvgPicture.asset('asset/images/ICON/imageicon3.svg'),
+                    color: MenuState.profile==selectedMenu? kPrimaryColor:inactiveColor,
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()),);
+                  },
+
+                  ),
                 ),
                 Expanded(
                   child: IconButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ShoppingCart()),);
-                    },
-                    icon:SvgPicture.asset('asset/images/ICON/imageicon4.svg'),color:MenuState.ShoppingCart==selectedMenu? kPrimaryColor:inactiveColor,),
+                    icon:SvgPicture.asset('asset/images/ICON/imageicon4.svg'),
+                    color:MenuState.shoppingCart==selectedMenu? kPrimaryColor:inactiveColor,onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ShoppingCart()),);
+                  },
+
+                  ),
                 ),
               ],
             ),

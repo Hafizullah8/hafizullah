@@ -16,7 +16,7 @@ class _FavoritState extends State<Favorit> {
       appBar: AppBar(
         title: Text("Favorite"),
       ),
-      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.Favorit,),
+      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.favorite,),
     );
   }
 }

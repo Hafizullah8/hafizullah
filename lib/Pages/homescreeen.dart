@@ -24,9 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Center(child: Text("ShoppingStore")),
       ),
       backgroundColor: kBGColor,
-      body: Homebody(),
       drawer: NevigationDrawer(),
-      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.Home_Screen,),
+      body: Homebody(),
+      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.homescreen,),
     );
   }
 }

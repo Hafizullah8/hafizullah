@@ -16,7 +16,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
       appBar: AppBar(
         title: Text("ShoppinCart"),
       ),
-      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.ShoppingCart,),
+      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.shoppingCart,),
     );
   }
 }

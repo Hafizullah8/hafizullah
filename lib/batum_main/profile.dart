@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         title: Text("Profile"),
       ),
-      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.Profile,),
+      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.profile,),
     );
   }
 }
