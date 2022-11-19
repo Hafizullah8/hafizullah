@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mono_project/batum_main/favorite_page.dart';
-
-import 'package:mono_project/batum_main/profile.dart';
 import 'package:mono_project/batum_main/shoppingcart.dart';
 import 'package:mono_project/enam.dart';
+import '../batum_main/userprofile.dart';
 import 'homescreeen.dart';
 import '../constant.dart';
 class BatumNavBar extends StatelessWidget {
@@ -50,7 +49,7 @@ class BatumNavBar extends StatelessWidget {
 
                     icon:SvgPicture.asset('asset/images/ICON/imageicon3.svg'),
                     color: MenuState.profile==selectedMenu? kPrimaryColor:inactiveColor,
-                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()),);
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>UserPage()),);
                   },
 
                   ),

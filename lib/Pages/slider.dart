@@ -13,22 +13,33 @@ class _SliderProductState extends State<SliderProduct> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 200,
-        child:Carousel(
-
-          images:[
-            AssetImage('asset/images/image1.jpg'),
-            AssetImage('asset/images/image2.jpg'),
-            AssetImage('asset/images/image3.jpg'),
-            AssetImage('asset/images/image5.webp'),
-          ],
-          borderRadius: true,
-          radius:Radius.circular(30),
-          dotBgColor: Colors.transparent,
-          dotIncreasedColor: kPrimaryColor,
-          animationCurve: Curves.fastOutSlowIn,
-          animationDuration:Duration(milliseconds: 800),
+      child: Expanded(
+        child: Container(
+          height: 200,
+          child:Expanded(
+            child: Carousel(
+              images:[
+                AssetImage('asset/images/image1.jpg'),
+                AssetImage('asset/images/image2.jpg'),
+                AssetImage('asset/images/products/product1.jpg'),
+                AssetImage('asset/images/products/product9.jpg'),
+                AssetImage('asset/images/products/product8.jpg'),
+                AssetImage('asset/images/products/eyeglasses.jpg'),
+                AssetImage('asset/images/products/slider/images1.jpg'),
+                AssetImage('asset/images/products/slider/leman.jpg'),
+                AssetImage('asset/images/products/slider/raban.jpg'),
+                AssetImage('asset/images/products/slider/Shoes_large.jpg'),
+                AssetImage('asset/images/products/slider/shoesadidass.jpg'),
+                AssetImage('asset/images/products/slider/swoid.webp'),
+              ],
+              borderRadius: true,
+              radius:Radius.circular(30),
+              dotBgColor: Colors.transparent,
+              dotIncreasedColor: kPrimaryColor,
+              animationCurve: Curves.fastOutSlowIn,
+              animationDuration:Duration(milliseconds: 800),
+            ),
+          ),
         ),
       ),
     );

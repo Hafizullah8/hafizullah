@@ -5,9 +5,7 @@ class Categores extends StatefulWidget {
   @override
   State<Categores> createState() => _CategoresState();
 }
-
 class _CategoresState extends State<Categores> {
-
   @override
   Widget build(BuildContext context) {
     // now i create grid how column product want to show
@@ -19,7 +17,8 @@ class _CategoresState extends State<Categores> {
           recent_signle_prod_name:productListg[index]['name'],
           recent_signle_prod_image: productListg[index]['image'],
           recent_signle_prod_price: productListg[index]['price'],
-          recent_signle_prod_disk: productListg[index]['brand'],
+          recent_signle_prod_brand: productListg[index]['brand'],
+          recent_signle_country:productListg[index]['country'],
         );
       }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:1,childAspectRatio: 1),
     );
@@ -29,14 +28,18 @@ class _CategoresState extends State<Categores> {
 class RecentSingleProd extends StatefulWidget {
   final  recent_signle_prod_name;
   final  recent_signle_prod_image;
-  int  recent_signle_prod_price;
-  final recent_signle_prod_disk;
-
+  int recent_signle_prod_price;
+  final recent_signle_prod_brand;
+  final recent_signle_country;
   RecentSingleProd({
     required this.recent_signle_prod_name,
     required this.recent_signle_prod_image,
     required this.recent_signle_prod_price,
-    required this.recent_signle_prod_disk});
+    required this.recent_signle_prod_brand,
+    required this.recent_signle_country
+
+  });
+
   @override
   _RecentSingleProdState createState() => _RecentSingleProdState();
 }
@@ -50,8 +53,8 @@ class _RecentSingleProdState extends State<RecentSingleProd> {
       child: Column(
         children: [
           Container(
-            height:160,
-            width: 200,
+            height:180,
+            width: 240,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: kPrimaryColor,
@@ -61,11 +64,12 @@ class _RecentSingleProdState extends State<RecentSingleProd> {
               image: AssetImage(widget.recent_signle_prod_image),
               fit: BoxFit.cover,
             ),
+
           ),
           ListTile(
-             title:Text(widget.recent_signle_prod_name),
-             subtitle:Text('${widget.recent_signle_prod_price}\$'),
-             trailing: Container(
+            title:Text(widget.recent_signle_prod_name),
+            subtitle: Text('${widget.recent_signle_prod_price}\$'),
+            trailing: Container(
               height: 30,
               width: 30,
               decoration: BoxDecoration(
@@ -79,8 +83,13 @@ class _RecentSingleProdState extends State<RecentSingleProd> {
                     isLike=!isLike;
                   });
                 },),
-            ),
+            ),),
+          ListTile(
+            title: Text('Brand:   ${widget.recent_signle_prod_brand}'),
+            subtitle: Text('Country:  ${widget.recent_signle_country}'),
           ),
+
+
         ],
       ),
     );

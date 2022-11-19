@@ -8,6 +8,7 @@ import 'package:mono_project/database.dart';
 import 'package:mono_project/models/products.dart';
 import 'package:mono_project/variable.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/utils/utils.dart';
 import '../Pages/homescreeen.dart';
 class MainforminformationC extends StatefulWidget {
@@ -202,18 +203,18 @@ class _MainforminformationCState extends State<MainforminformationC> {
                   ElevatedButton(
                     onPressed:()async{
     // print(123);
-    // int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
+    //  int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
     // print(t);
        if(_IntegerExample.getprice()>=5){
+
          p=_IntegerExample.getprice();
-    List l=[];
-    if(l.length==0){
-    l=await databaseHandler.retrieveData(DatabaseHandler.tblpname);
-    productListg.addAll(l);
-    }
-    if(productList.length!=0){
-    productList.clear();
-    for(var producname in l){
+
+    if(productListg.length==0 && productList.length==0){
+
+    productListg=await databaseHandler.retrieveData(DatabaseHandler.tblpname);
+
+    for(var producname in productListg){
+
     if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
     && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
         && Product.fromMap(producname).getprice()<=p && Product.fromMap(producname).getprice()>=5
@@ -221,24 +222,14 @@ class _MainforminformationCState extends State<MainforminformationC> {
     productList.add(producname);
     }
     }
-    setState(() {
+    setState(()async{
+      await databaseHandler.insertProducts(DatabaseHandler.tblrname, productList);
       _IntegerExample.setprice(0);
     Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
     });
-    }else{
-    for(var producname in l){
-    if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
-    && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
-        && Product.fromMap(producname).getprice()<=p && Product.fromMap(producname).getprice()>=5
-    ){
-    productList.add(producname);
+
     }
-    }
-    setState(() {
-      _IntegerExample.setprice(0);
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-    });
-    }
+
 
     }; }, child:Text("Send"),),
                 ],
@@ -309,7 +300,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
 class _IntegerExample extends StatefulWidget {
   @override
   __IntegerExampleState createState() => __IntegerExampleState();
-  static int _currentHorizontalIntValue = 5;
+  static int _currentHorizontalIntValue = 4;
   static getprice() {
 
     return _currentHorizontalIntValue;

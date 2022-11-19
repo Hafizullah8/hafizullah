@@ -72,13 +72,6 @@ flutter:
   assets:
     - asset/images/
     - asset/images/products/
-    - asset/images/products/tshirt/
-    - asset/images/products/shoe/
-    - asset/images/products/phone/
-    - asset/images/products/pc/
-    - asset/images/products/headphone/
-    - asset/images/products/eyeglasses/
-    - asset/images/products/dish/
     - asset/images/ICON/
     - asset/smarthwatch/appBrand/female/
     - asset/smarthwatch/appBrand/male/
@@ -96,6 +89,8 @@ flutter:
     - asset/clothing/siawood/male/
     - asset/clothing/leman/female/
     - asset/clothing/leman/male/
+    - asset/images/products/slider/
+
 
   #   - images/a_dot_ham.jpeg
 

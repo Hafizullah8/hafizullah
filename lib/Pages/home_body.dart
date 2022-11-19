@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mono_project/Pages/searchbar_section.dart';
 import 'package:mono_project/Pages/slider.dart';
 import 'package:mono_project/constant.dart';
-
-
-import 'Category/category.dart';
 import 'Products/Recommended.dart';
 import 'Products/categrores.dart';
 class Homebody extends StatefulWidget {
@@ -28,9 +25,7 @@ class _HomebodyState extends State<Homebody> {
               SearchbarSection(),
               SizedBox(height: 10),// search bar
               SliderProduct(), // slider
-              SizedBox(height: 10,),
-             // Category1(), // categroy
-              SizedBox(height: 10,),
+              SizedBox(height: 40,),
               Padding(
                 padding: const EdgeInsets.only(left: 15,right: 15),
                 child: Row(
@@ -59,9 +54,10 @@ class _HomebodyState extends State<Homebody> {
               ),
               Container(
                 // if we shold use container to give height: ,becuase error ocured
-                  height: 240,
+                  height: 255,
                   child: Categores(),
               ),
+              SizedBox(height: 40,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -75,10 +71,9 @@ class _HomebodyState extends State<Homebody> {
 
                 ],
               ),
-
               Container(
                 // if we shold use container to give height: ,becuase error ocured
-                height: 240,
+                height: 250,
                 child:RecommendedProduct(),
               ),
 

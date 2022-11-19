@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mono_project/Pages/homescreeen.dart';
 import 'package:mono_project/constant.dart';
 import 'package:mono_project/personalizetion/mainformforminformation.dart';
-import 'package:mono_project/userprofile.dart';
+import 'package:mono_project/batum_main/userprofile.dart';
+import 'package:mono_project/variable.dart';
 
 import 'login.dart';
 
@@ -66,8 +67,13 @@ Widget buildMenuItem(BuildContext context)=>Container(
       ListTile(
         leading: Icon(Icons.camera_outlined),
         title: Text("Change Content"),
-        onTap: ()=>
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainforminformationC())),
+        onTap: () async{
+          await databaseHandler.deletet();
+          productListg=[];
+          productList=[];
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MainforminformationC()));
+
+        }
       ),
       SizedBox(height: 30,),
       ListTile(

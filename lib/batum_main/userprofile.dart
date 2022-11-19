@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Pages/batumbar.dart';
+import '../enam.dart';
+
 class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,7 @@ class UserPage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar:BatumNavBar(selectedMenu: MenuState.profile,),
     );
   }
 }

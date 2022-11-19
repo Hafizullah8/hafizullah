@@ -8,7 +8,6 @@ class RecommendedProduct extends StatefulWidget {
 }
 
 class _RecommendedState extends State<RecommendedProduct> {
-
   @override
   Widget build(BuildContext context) {
     // now i create grid how column product want to show
@@ -20,7 +19,8 @@ class _RecommendedState extends State<RecommendedProduct> {
           recent_signle_prod_name:productList[index]['name'],
           recent_signle_prod_image: productList[index]['image'],
           recent_signle_prod_price: productList[index]['price'],
-          recent_signle_prod_disk: productList[index]['brand'],
+          recent_signle_prod_brand: productList[index]['brand'],
+          recent_signle_country:productList[index]['country'],
         );
       }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:1,childAspectRatio: 1),
     );
@@ -31,12 +31,15 @@ class RecentSingleProd extends StatefulWidget {
   final  recent_signle_prod_name;
   final  recent_signle_prod_image;
   int recent_signle_prod_price;
-  final recent_signle_prod_disk;
+  final recent_signle_prod_brand;
+  final recent_signle_country;
   RecentSingleProd({
                       required this.recent_signle_prod_name,
                       required this.recent_signle_prod_image,
                        required this.recent_signle_prod_price,
-                      required this.recent_signle_prod_disk
+                      required this.recent_signle_prod_brand,
+                       required this.recent_signle_country
+
   });
 
   @override
@@ -52,8 +55,8 @@ class _RecentSingleProdState extends State<RecentSingleProd> {
       child: Column(
         children: [
           Container(
-            height:160,
-            width: 200,
+            height:180,
+            width: 240,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: kPrimaryColor,
@@ -83,6 +86,12 @@ class _RecentSingleProdState extends State<RecentSingleProd> {
                   });
                 },),
             ),),
+          ListTile(
+            title: Text('Brand:   ${widget.recent_signle_prod_brand}'),
+            subtitle: Text('Country:  ${widget.recent_signle_country}'),
+          ),
+
+
         ],
       ),
     );

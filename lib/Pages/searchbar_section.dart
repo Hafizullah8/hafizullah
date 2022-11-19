@@ -37,22 +37,8 @@ class SearchbarSection extends StatelessWidget{
             Container(
               child:IconButton(onPressed: () {  }, icon: Icon(Icons.search),),
             ),
-              // sorting buton
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow:[
-                    BoxShadow(
-                      color: Colors.black38,
-                      blurRadius: 4,
-                    ),
-                  ],
-                ),
-              ),
+              // search iconse
+
             ],
           ),
         ),

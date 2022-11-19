@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 class DatabaseHandler {
   //database
   late Database database;
@@ -18,10 +17,19 @@ class DatabaseHandler {
  static const colbrand='brand';
  static const colimage='image';
  static const colgender='gender';
-
  static const colprice='price';
  static const colcountry='country';
  static const colpid='id';
+
+ static const tblrname='Recommended';
+ static const colname2='name';
+ static const colbrand2='brand';
+ static const colimage2='image';
+ static const colgender2='gender';
+ static const colprice2='price';
+ static const colcountry2='country';
+ static const colid2='id';
+
 
 
 
@@ -50,6 +58,17 @@ class DatabaseHandler {
             $colgender TEXT NOT NULL,
             $colprice INTEGER NOT NULL ,
             $colcountry TEXT NOT NULL
+            );'''
+        );
+        await database.execute(
+            '''CREATE TABLE $tblrname(
+            $colid2 INTEGER PRIMARY KEY AUTOINCREMENT,
+            $colname2 TEXT NOT NULL,
+            $colbrand2 TEXT NOT NULL,
+            $colimage2 TEXT NOT NULL,
+            $colgender2 TEXT NOT NULL,
+            $colprice2 INTEGER NOT NULL ,
+            $colcountry2 TEXT NOT NULL
             );'''
         );
 
@@ -90,4 +109,11 @@ class DatabaseHandler {
     await database.update(tableName, values,
         where: where, whereArgs: whereArgs);
   }
+  Future<void> deletet()async{
+    await database.delete(tblrname);
+  }
 }
+
+
+
+
