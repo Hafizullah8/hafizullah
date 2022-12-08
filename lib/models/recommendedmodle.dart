@@ -1,5 +1,4 @@
-class Product{
-
+class RecommendedModle{
   int? _id;
   String _name='';
   int? _price;
@@ -9,33 +8,29 @@ class Product{
   String _country='';
   int? _isLike;
 
+
+   getid(){
+    return _id;
+  }
    getisLike(){
     return _isLike;
   }
-
-  setisLike(int isLike) {
-    _isLike = isLike;
-  }
-
-  getid(){
-    return _id;
-  }
-  String getname(){
+   getname(){
     return _name;
   }
-  String getbrand (){
+  getbrand (){
     return  _brand;
   }
   getprice (){
     return _price;
   }
-  String getgender (){
+   getgender (){
     return _gender;
   }
-  String getimage(){
+   getimage(){
     return _image;
   }
-  String getcountry(){
+  getcountry(){
     return _country;
   }
 
@@ -60,10 +55,13 @@ class Product{
   setcountry(String country) {
     _country = country;
   }
+  setisLike(int isLike) {
+    _isLike = isLike;
+  }
 
 
-  Product.initiate();
-  Product(int id,String name, String brand, String image, String gender, int price,String country,int isLike){
+  RecommendedModle.initiate();
+  RecommendedModle(int id,String name, String brand, String image, String gender, int price,String country,int isLike){
     this._id=id;
     this._name=name;
     this._brand=brand;
@@ -72,6 +70,7 @@ class Product{
     this._image=image;
     this._country=country;
     this._isLike=isLike;
+
   }
   Map<String,Object> toMap(){
     return {
@@ -85,7 +84,7 @@ class Product{
       'isLike':getisLike(),
     };
   }
-  Product.fromMap(Map<String,dynamic>map){
+  RecommendedModle.fromMap(Map<String,dynamic>map){
     setid(map['id']);
     setname(map['name']);
     setbrand(map['brand']);

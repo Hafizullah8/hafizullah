@@ -1,15 +1,11 @@
 import 'package:animated_button/animated_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mono_project/database.dart';
 import 'package:mono_project/models/contact.dart';
-import 'package:mono_project/pages/homescreeen.dart';
-import 'package:mono_project/personalizetion/mainformforminformation.dart';
+import 'package:mono_project/personalizetion/userprofiler.dart';
 import 'package:mono_project/variable.dart';
 import 'package:flutter/widgets.dart';
-
 import 'login.dart';
-import 'main.dart';
 class SignupPage extends StatefulWidget{
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -146,9 +142,7 @@ class _SignupPageState extends State<SignupPage> {
       int? t =await databaseHandler?.insertInto(DatabaseHandler.tblname,_contact);
       setState((){_formKey.currentState!.reset();});
       if(t!=0){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>MainforminformationC()));
-      } else{
-
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>UserProfiler()));
       }
 
     }

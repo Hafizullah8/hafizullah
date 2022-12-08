@@ -1,4 +1,3 @@
-import 'package:animated_button/animated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gender_picker/source/gender_picker.dart';
@@ -6,36 +5,37 @@ import 'package:gender_picker/source/enums.dart';
 import 'package:mono_project/constant.dart';
 import 'package:mono_project/database.dart';
 import 'package:mono_project/models/products.dart';
+import 'package:mono_project/personalizetion/pricepicker.dart';
 import 'package:mono_project/variable.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/utils/utils.dart';
 import '../Pages/homescreeen.dart';
-class MainforminformationC extends StatefulWidget {
+class UserProfiler extends StatefulWidget {
 
   @override
-  State<MainforminformationC> createState() => _MainforminformationCState();
+  State<UserProfiler> createState() => _UserProfilerState();
 }
-class _MainforminformationCState extends State<MainforminformationC> {
-
+class _UserProfilerState extends State<UserProfiler> {
+  //مربوط به بخش انتخاب مکان می باشد
   var _locations = ['Afghanistan', 'Iran'];
   String selectedLocation = 'Afghanistan';
   String choose='';
 
+//  مربوط به بخش انتخاب محصولات می باشد
   List<String> text=[];
   bool _isChecked = false;
-  bool _isnewChecked=false;
-  String _nowcurrText='';
   String _currText = '';
-  List<String> newtext=[];
-  List<String> chooseproduce = ["smarthwatch", "shoes", "clothing","glasses"];
+  List<String> chooseProduct = ["smarthwatch", "shoes", "clothing","glasses"];
+
+
+
+//مربوط به بخش انتخاب برند می باشد
   List<String> smart=["Sumsung","Apple"];
   List<String> shoes=["mart","adidas"];
   List<String> clothing=["leman","siawood"];
   List<String> glasses=["optic","rayban"];
-
-
-  late Product _product;
+  List<String> newtext=[];
+  bool _isnewChecked=false;
+  String _nowcurrText='';
+ //از این واریبل ها در قسمت فیلترینگ استفاده میشود یعنی قیمت های بخود میگرد که ما انتخاب کردیم یا علایق ما میباشد
   String? n='';
   String? b='';
   String? g='';
@@ -52,6 +52,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //مکان یا حوضه خرید انتخاب میکنیم
             Container(
               height: 100,
               margin:EdgeInsets.only(top: 40) ,
@@ -72,7 +73,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
                           selectedLocation = newValue!;
                           choose=selectedLocation;
                           if(choose!=''){
-                            text=chooseproduce;
+                            text=chooseProduct;
                           }else{
                             print("sorry");
                           };
@@ -98,6 +99,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
 
             ),
             Divider(color: Colors.grey, height: 32),
+            //نوع محصول که انتخاب میکنیم
             Container(
               child: Column(
                 children:[
@@ -108,7 +110,8 @@ class _MainforminformationCState extends State<MainforminformationC> {
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                        )),
+                        ),
+                    ),
                   ),
 
                   Container(
@@ -146,6 +149,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
               ),
             ),
             Divider(color: Colors.grey, height: 32),
+            //نوع برند که انتخاب می شود
             Container(
 
               child: Column(
@@ -184,16 +188,17 @@ class _MainforminformationCState extends State<MainforminformationC> {
               ),
             ),
             Divider(color: Colors.grey, height: 32),
+            //جنسیتی که مشخص میکنیم یعنی مردانه باشه یا زنانه
             Container(
               child: Text(
                 'Select Gender',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
             ),
-
-              getWidget(false, false),
+            getWidget(false, false),
             Divider(color: Colors.grey, height: 32),
-            _IntegerExample(),
+            //محدوده قیمت که مشخص میشود
+            PricePicker(),
             Divider(color: Colors.grey, height: 32),
             Container(
               height: 300,
@@ -202,13 +207,12 @@ class _MainforminformationCState extends State<MainforminformationC> {
                 children:[
                   ElevatedButton(
                     onPressed:()async{
-    // print(123);
-    //  int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
-    // print(t);
-       if(_IntegerExample.getprice()>=5){
-
-         p=_IntegerExample.getprice();
-
+     // print(123);
+     // int t= await databaseHandler.insertProducts(DatabaseHandler.tblpname,producList);
+     // print(t);
+       if(PricePicker.getprice()>=5){
+         p=PricePicker.getprice();
+       await databaseHandler.deletet();
     if(productListg.length==0 && productList.length==0){
 
     productListg=await databaseHandler.retrieveData(DatabaseHandler.tblpname);
@@ -216,22 +220,28 @@ class _MainforminformationCState extends State<MainforminformationC> {
     for(var producname in productListg){
 
     if(Product.fromMap(producname).getcountry()==c && Product.fromMap(producname).getname()==n
+
     && Product.fromMap(producname).getbrand()==b && Product.fromMap(producname).getgender()==g
+
         && Product.fromMap(producname).getprice()<=p && Product.fromMap(producname).getprice()>=5
+
     ){
+
     productList.add(producname);
+
     }
+
     }
     setState(()async{
       await databaseHandler.insertProducts(DatabaseHandler.tblrname, productList);
-      _IntegerExample.setprice(0);
+      PricePicker.setprice(0);
     Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
     });
 
     }
 
 
-    }; }, child:Text("Send"),),
+    }; }, child:Text("Ok"),),
                 ],
               ),
             )
@@ -256,7 +266,7 @@ class _MainforminformationCState extends State<MainforminformationC> {
             color: Color(0xFF8b32a8), fontWeight: FontWeight.bold),
         unSelectedGenderTextStyle: TextStyle(
             color: Colors.black, fontWeight: FontWeight.normal),
-        onChanged: (Gender? gender) {
+        onChanged: (Gender? gender){
           g=gender.toString();
           print(gender);
         },
@@ -271,102 +281,12 @@ class _MainforminformationCState extends State<MainforminformationC> {
       ),
     );
   }
-//   insertlist(){
-//
-//     for(int i=0;i<producList.length;i++){
-//       for(int j=0;j<=5;j++){
-//         if(producList[i][0]==producList[i][j]){
-//           n=producList[i][j];
-//         }else if(producList[i][1]==producList[i][j]){
-//           b=producList[i][j];
-//         }else if(producList[i][2]==producList[i][j]){
-//           im=producList[i][j];
-//         }else if(producList[i][3]==producList[i][j]){
-//           g=producList[i][j];
-//         }else if(producList[i][4]==producList[i][j]){
-//           p=producList[i][j];
-//         }else if(producList[i][5]==producList[i][j]){
-//           c=producList[i][j];
-//         }
-//       }
-//      return _product= Product( n!, b!, im!,  g!,  p!, c!);
-//     }
-//   }
-}
-
-
-
-
-class _IntegerExample extends StatefulWidget {
-  @override
-  __IntegerExampleState createState() => __IntegerExampleState();
-  static int _currentHorizontalIntValue = 4;
-  static getprice() {
-
-    return _currentHorizontalIntValue;
-
-  }
-
-  static void setprice(int price){
-    _currentHorizontalIntValue=price;
-  }
 
 }
-class __IntegerExampleState extends State<_IntegerExample> {
 
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-
-        SizedBox(height: 16),
-        Text('Select  Bounded Price', style: Theme.of(context).textTheme.headline6),
-        NumberPicker(
-          value: _IntegerExample. _currentHorizontalIntValue,
-          minValue: 0,
-          maxValue: 5000,
-          step: 10,
-          itemHeight: 100,
-          axis: Axis.horizontal,
-          onChanged: (value) =>
-              setState((){
-                _IntegerExample. _currentHorizontalIntValue = value;
-              }),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.black26),
-          ),
-        ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(icon: Icon(Icons.remove),
-              onPressed: () => setState(() {
-                final newValue = _IntegerExample._currentHorizontalIntValue - 10;
-                _IntegerExample. _currentHorizontalIntValue = newValue.clamp(5, 5000);
-              }),
-            ),
-
-            Text('bounded value: ${_IntegerExample._currentHorizontalIntValue}'),
-
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => setState(() {
-                final newValue = _IntegerExample._currentHorizontalIntValue + 10;
-                _IntegerExample._currentHorizontalIntValue = newValue.clamp(5,5000);
-              }),
-            ),
 
 
-          ],
-        ),
-      ],
-    );
-  }
-
-}
 
 

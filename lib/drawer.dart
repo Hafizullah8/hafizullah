@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mono_project/Pages/homescreeen.dart';
-import 'package:mono_project/constant.dart';
-import 'package:mono_project/personalizetion/mainformforminformation.dart';
+
+import 'package:mono_project/personalizetion/userprofiler.dart';
 import 'package:mono_project/batum_main/userprofile.dart';
 import 'package:mono_project/variable.dart';
 
@@ -71,8 +71,7 @@ Widget buildMenuItem(BuildContext context)=>Container(
           await databaseHandler.deletet();
           productListg=[];
           productList=[];
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MainforminformationC()));
-
+          Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfiler()));
         }
       ),
       SizedBox(height: 30,),

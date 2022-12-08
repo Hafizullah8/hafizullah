@@ -1,10 +1,11 @@
+import 'package:mono_project/models/products.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 class DatabaseHandler {
   //database
   late Database database;
   final databaseName = 'myDatabase';
-  final databaseVersion = 1;
+  final databaseVersion = 2;
 
   //Table: about_user
  static const tblname='Contact';
@@ -19,7 +20,9 @@ class DatabaseHandler {
  static const colgender='gender';
  static const colprice='price';
  static const colcountry='country';
+ static const colisLike='isLike';
  static const colpid='id';
+
 
  static const tblrname='Recommended';
  static const colname2='name';
@@ -28,7 +31,9 @@ class DatabaseHandler {
  static const colgender2='gender';
  static const colprice2='price';
  static const colcountry2='country';
+ static const colisLike2='isLike';
  static const colid2='id';
+
 
 
 
@@ -57,7 +62,8 @@ class DatabaseHandler {
             $colimage TEXT NOT NULL,
             $colgender TEXT NOT NULL,
             $colprice INTEGER NOT NULL ,
-            $colcountry TEXT NOT NULL
+            $colcountry TEXT NOT NULL,
+            $colisLike   BOOLEAN NOT NULL
             );'''
         );
         await database.execute(
@@ -68,7 +74,8 @@ class DatabaseHandler {
             $colimage2 TEXT NOT NULL,
             $colgender2 TEXT NOT NULL,
             $colprice2 INTEGER NOT NULL ,
-            $colcountry2 TEXT NOT NULL
+            $colcountry2 TEXT NOT NULL,
+            $colisLike2  BOOLEAN NOT NULL
             );'''
         );
 
@@ -104,11 +111,12 @@ class DatabaseHandler {
     );
   }
 
-  Future<void> updateData(String tableName, Map<String, Object> values,
-      String where, List<Object> whereArgs) async {
-    await database.update(tableName, values,
-        where: where, whereArgs: whereArgs);
+  Future<void> updateData(String tableName, Map<String, Object> values, String where, List<Object> whereArgs) async {//table produce, {'isLike: true'}, 'id=?', 'productid'
+
+      await database.update(tableName,values, where: where, whereArgs: whereArgs);
+
   }
+  //just use for delete table recommended
   Future<void> deletet()async{
     await database.delete(tblrname);
   }

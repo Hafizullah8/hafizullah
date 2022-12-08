@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mono_project/Pages/searchbar_section.dart';
 import 'package:mono_project/Pages/slider.dart';
-import 'package:mono_project/constant.dart';
 import 'Products/Recommended.dart';
 import 'Products/categrores.dart';
 class Homebody extends StatefulWidget {
@@ -54,7 +53,7 @@ class _HomebodyState extends State<Homebody> {
               ),
               Container(
                 // if we shold use container to give height: ,becuase error ocured
-                  height: 255,
+                  height:270,
                   child: Categores(),
               ),
               SizedBox(height: 40,),

@@ -12,3 +12,4 @@ const kPrimaryColor=Color.fromARGB(255, 192, 192, 192);
 const kBGColor=Color(0xfffafafa);
 // text color
 const kTextColor=Colors.grey;
+const kBGColor2=Color.fromARGB(100, 256, 166, 166);
